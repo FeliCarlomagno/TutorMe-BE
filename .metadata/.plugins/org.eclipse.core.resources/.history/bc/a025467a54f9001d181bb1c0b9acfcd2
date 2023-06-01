@@ -1,0 +1,36 @@
+package com.tutorMe.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.tutorMe.model.Annuncio;
+import com.tutorMe.repository.AnnuncioRepository;
+
+import jakarta.persistence.EntityExistsException;
+
+@Service
+public class AnnuncioService {
+	
+	@Autowired AnnuncioRepository annuncioRepository;
+	
+	public String addAnnuncio(Annuncio a) {
+		if(annuncioRepository.existsById(a.getId())) {
+			throw new EntityExistsException("Annuncio già esistente con questo ID");
+		}
+		annuncioRepository.save(a);
+		return "Annuncio aggiunto correttamente";
+	}
+	
+	public List<Annuncio> findAllAnnunci(){
+		return annuncioRepository.findAll();
+	}
+	
+	
+	
+	
+	
+	
+	
+}

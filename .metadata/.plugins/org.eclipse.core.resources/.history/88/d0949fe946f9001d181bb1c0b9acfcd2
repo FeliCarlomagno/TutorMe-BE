@@ -1,0 +1,15 @@
+package com.tutorMe.enums;
+
+import java.util.Random;
+
+public enum TipoLezione {
+	DAL_VIVO,ONLINE;
+	
+	private static final Random random = new Random();
+	
+	public static TipoLezione randomTypes()  {
+    	TipoLezione[] type = values();
+        return type[random.nextInt(type.length)];
+    }
+}
+}

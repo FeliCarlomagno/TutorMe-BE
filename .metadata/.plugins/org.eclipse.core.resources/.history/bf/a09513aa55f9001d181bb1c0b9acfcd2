@@ -1,0 +1,10 @@
+package com.tutorMe.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
+
+import com.tutorMe.model.Annuncio;
+
+public interface AnnuncioRepository extends JpaRepository<Annuncio, Long>, PagingAndSortingRepository<Annuncio, Long> {
+
+}

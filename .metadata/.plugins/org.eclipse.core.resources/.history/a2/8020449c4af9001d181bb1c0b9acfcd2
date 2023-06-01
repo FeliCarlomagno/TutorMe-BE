@@ -1,0 +1,15 @@
+package com.tutorMe.repository;
+
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.PagingAndSortingRepository;
+
+import com.tutorMe.model.Insegnante;
+
+public interface InsegnanteRepository extends JpaRepository<Insegnante, Long>, PagingAndSortingRepository<Insegnante, Long> {
+	@Query("SELECT i FROM Insegnante i WHERE i.citta= :nomeCitta")
+	List<Insegnante> findByCity(String nomeCitta);
+	
+}

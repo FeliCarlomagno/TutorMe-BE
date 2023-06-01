@@ -1,0 +1,99 @@
+package com.tutorMe.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.tutorMe.model.Insegnante;
+import com.tutorMe.service.InsegnanteService;
+
+
+@RestController
+@RequestMapping("/insegnanti")
+public class InsegnanteController {
+	
+	@Autowired InsegnanteService insegnanteService;
+	
+	
+	@PostMapping
+	public ResponseEntity<?> registraInsegnante(@RequestBody Insegnante insegnante){
+		try {
+			return new ResponseEntity<>(insegnanteService.addinsegnante(insegnante), HttpStatus.CREATED);
+		} catch (Exception e) {
+			return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	
+	@GetMapping("/listaInsegnanti")
+	@PreAuthorize("hasRole('USER')")
+	public ResponseEntity<?> recuperaInsegnanti(){
+		return new ResponseEntity<>(insegnanteService.findAllInsegnanti(), HttpStatus.OK);
+	}
+	
+	
+	@GetMapping("/listaInsegnantiPageable")
+	@PreAuthorize("hasRole('USER')")
+	public ResponseEntity<?> recuperaInsegnantiPageable(Pageable pageable){
+		try {
+			return new ResponseEntity<>(insegnanteService.getAllInsegnantiPageable(pageable), HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	
+	@GetMapping("/listaInsegnantiPaginati/nomi")
+	@PreAuthorize("hasRole('USER')")
+	public ResponseEntity<?> recuperaInsegnantiPageablePerNome(Pageable pageable){
+		try {
+			return new ResponseEntity<>(insegnanteService.getAllInsegnantiPageabeleByName(), HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	@GetMapping("/trovaInsegnante/{id}")
+	@PreAuthorize("hasRole('USER')")
+	public ResponseEntity<?> trovaInsegnante(@PathVariable Long id){
+		try {
+			return new ResponseEntity<>(insegnanteService.findById(id), HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<String>(e.getMessage(),HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	@PutMapping("/modificaInsegnante/{id}")
+	@PreAuthorize("hasRole('ADMIN')")
+	public ResponseEntity<?>modificaInsegnante(@RequestBody Insegnante insegnante, Long id){
+		insegnante.setId(id);
+		try {
+			return new ResponseEntity<>(insegnanteService.editInsegnante(insegnante), HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	@DeleteMapping("/eliminaInsegnante/{id}")
+	@PreAuthorize("hasRole('ADMIN')")
+	public ResponseEntity<?> eliminaInsegnante(@PathVariable Long id){
+		try {
+			return new ResponseEntity<>(insegnanteService.deleteInsegnanteById(id), HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<String>(e.getMessage(),HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	
+	
+}

@@ -1,0 +1,6 @@
+package com.tutorMe.configuration;
+
+@Configuration
+public class UserConfiguration {
+
+}

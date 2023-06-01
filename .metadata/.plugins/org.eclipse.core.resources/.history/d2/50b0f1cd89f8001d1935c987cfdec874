@@ -1,0 +1,90 @@
+package com.tutorMe.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.tutorMe.model.Studente;
+import com.tutorMe.service.StudenteService;
+
+@RestController
+@RequestMapping("/studenti")
+public class StudenteController {
+	
+	@Autowired StudenteService studenteService;
+	
+//	@PostMapping()
+//	public ResponseEntity<?> registraStudente(@RequestBody Studente studente){
+//		try {
+//			return new ResponseEntity<>(studenteService.addStudente(studente), HttpStatus.CREATED);
+//		} catch (Exception e) {
+//			return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+//		}
+//	}
+//	
+//	@GetMapping("/listaStudenti")
+//	public ResponseEntity<?> recuperaStudenti(){
+//		return new ResponseEntity<>(studenteService.findAllStudenti(), HttpStatus.OK);
+//	}
+	
+//	@GetMapping("/listaStudenti/paginazione")
+//	public ResponseEntity<?> recuperaStudentePaginati(Pageable pageable){
+//		try {
+//			return new ResponseEntity<>(studenteService.getAllStudentiPageable(pageable),HttpStatus.FOUND);
+//		} catch (Exception e) {
+//			return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+//		}
+//	}
+	
+//	@GetMapping("listaStudenti/paginazionePerNome")
+//	public ResponseEntity<?> recuperaStudentiPageablebyName(Pageable pageable){
+//		try {
+//			return new ResponseEntity<>(studenteService.getAllStudentiPageabeleByName(), HttpStatus.FOUND);
+//		} catch (Exception e) {
+//			return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+//		}
+//	}
+	
+	
+	
+//	@GetMapping("/trovaStudente/{id}")
+//	public ResponseEntity<?> trovastudente(@PathVariable Long id){
+//		try {
+//			return new ResponseEntity<>(studenteService.findById(id), HttpStatus.OK);
+//		} catch (Exception e) {
+//			return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+//		}
+//	}
+	
+	
+	
+//	@PutMapping("/modificaStudente/{id}")
+//	public ResponseEntity<?> modificaStudente(@RequestBody Studente s, @PathVariable Long id){
+//		s.setId(id);
+//		try {
+//			return new ResponseEntity<Studente>(studenteService.editStudente(s),(HttpStatus.CREATED));
+//		} catch (Exception e) {
+//			return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+//		}
+//	}
+//	
+	@DeleteMapping("/eliminaStudente/{id}")
+	public ResponseEntity<?> eliminaStudente(@PathVariable Long id){
+		try {
+			return new ResponseEntity<>(studenteService.deletStudenteById(id), HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	
+}

@@ -1,0 +1,46 @@
+package com.tutorMe.configuration;
+
+import java.util.Locale;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Scope;
+
+import com.github.javafaker.Faker;
+import com.tutorMe.model.Studente;
+
+@Configuration
+public class StudenteConfiguration {
+	
+	@Bean
+	@Scope("prototype")
+	public Studente creaStudente() {
+		return new Studente();
+	}
+	
+	@Bean("studenteCustom")
+	@Scope("prototype")
+	public Studente studenteCustom(String nome, String cognome, Integer eta, String citta,String email) {
+		Studente s = new Studente();
+		s.setNome(nome);
+		s.setCognome(cognome);
+		s.setEta(eta);
+		s.setCitta(citta);
+		s.setEmail(email);
+		return s;
+	}
+	
+	@Bean("studenteFaker")
+	@Scope("prototype")
+	public Studente studenteFaker() {
+		Faker fake = new Faker (new Locale("it_IT"));
+		Studente s = new Studente();
+		s.setNome(fake.name().firstName());
+		s.setCognome(fake.name().lastName());
+		s.setEta(fake.number().numberBetween(15, 50));
+		s.setCitta(fake.address().cityName());
+		s.setEmail(s.getNome() + "." + s.getCognome() + "@studenti.com");
+		
+		return s;
+	}
+}

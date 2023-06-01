@@ -1,0 +1,23 @@
+package com.tutorMe.repository;
+
+import java.util.Date;
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.PagingAndSortingRepository;
+
+import com.tutorMe.model.Prenotazione;
+
+public interface PrenotazioneRepository extends JpaRepository<Prenotazione, Long>, PagingAndSortingRepository<Prenotazione, Long> {
+	@Query("SELECT p FROM Prenotazione p WHERE p.user = :idUser")
+	List<Prenotazione> findByPrenotazioneAndStudente(Long idUser);
+	
+	@Query("SELECT p FROM Prenotazione p WHERE p.insegnante = :idInsegnante")
+	List<Prenotazione> findByPrenotazioneAndInsegnante(Long idInsegnante);
+	
+	public List<Prenotazione> findByDataPrenotazione(Date dataPrenotazione);
+	
+	//List<Prenotazione> findByMateriaPrenotazione(String materiaPrenotazione);
+	//List<Prenotazione> findByInsegnante(Insegnante insegnante);
+}

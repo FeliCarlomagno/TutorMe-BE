@@ -1,0 +1,69 @@
+package com.tutorMe.configuration;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.Scope;
+
+import com.github.javafaker.Faker;
+import com.tutorMe.enums.TipoInsegnante;
+import com.tutorMe.enums.TitoloDiStudio;
+import com.tutorMe.model.Insegnante;
+import com.tutorMe.model.Prenotazione;
+
+@Configuration
+@PropertySource("classpath:application.properties")
+public class InsegnanteConfiguration {
+	
+	@Bean
+	@Scope("prototype")
+	public Insegnante creaInsegnante() {
+		return new Insegnante();
+	}
+	
+	@Bean("insegnanteCustom")
+	@Scope("prototype")
+	public Insegnante insegnanteCustom(String nome, String cognome, Integer eta,
+			String email, String citta, TipoInsegnante tipoInsegnante, List<TitoloDiStudio> titoliStudio, 
+			Integer anniEsperienza, List<String> materia, Integer tariffaOraria) {
+		Insegnante i = new Insegnante();
+		i.setNome(nome);
+		i.setCognome(cognome);
+		i.setEta(eta);
+		i.setEmail(email);
+		i.setCitta(citta);
+		i.setTipoInsegnante(tipoInsegnante);
+		i.setTitoliStudio(titoliStudio);
+		i.setAnniEsperienza(anniEsperienza);
+		i.setMateria(materia);
+		i.setTariffaOraria(tariffaOraria);
+		
+		return i;
+	}
+	
+	@Bean("insegnanteFaker")
+	@Scope("prototype")
+	public Insegnante insegnanteFaker() {
+		Faker fake = new Faker (new Locale("it-IT"));
+		Insegnante i = new Insegnante();
+		TipoInsegnante tipo = TipoInsegnante.randomTypes();
+		i.setNome(fake.name().firstName());
+		i.setCognome(fake.name().lastName());
+		i.setEta(fake.number().numberBetween(25, 65));
+		i.setEmail(i.getNome() + "." + i.getCognome() + "@insegnanti.com");
+		i.setCitta(fake.address().cityName());
+		i.setTipoInsegnante(tipo);
+		i.setTitoliStudio(new ArrayList<TitoloDiStudio>());
+		for(int ind = 0; ind < 3 ; ind++) {
+			i.getTitoliStudio().add(TitoloDiStudio.randomTypes());
+		}
+		i.setAnniEsperienza(fake.number().numberBetween(5, 30));
+		i.setMateria("Italiano" + "Grammatica" + "Storia");
+		i.setTariffaOraria(fake.number().numberBetween(15, 40));
+		return i;  
+	}
+}

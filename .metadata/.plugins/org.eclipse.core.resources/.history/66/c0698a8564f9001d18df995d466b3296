@@ -1,0 +1,34 @@
+package com.tutorMe.configuration;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Scope;
+
+import com.auth.entity.User;
+import com.tutorMe.enums.TipoLezione;
+import com.tutorMe.model.Annuncio;
+
+@Configuration
+public class AnnuncioConfiguration {
+	@Bean
+	@Scope("prototype")
+	public Annuncio creaAnnuncio() {
+		return new Annuncio();
+	}
+	
+	@Bean
+	@Scope("prototype")
+	public Annuncio annuncioCustom(User user,String materia,
+			String titoloAnnuncio, String descrizioneAnnnuncio,
+			TipoLezione tipoLezione, Integer tariffaOraria) {
+		Annuncio a = new Annuncio();
+		a.setUser(user);
+		a.setMateria(materia);
+		a.setTitoloAnnuncio(titoloAnnuncio);
+		a.setDescrizioneAnnuncio(descrizioneAnnnuncio);
+		a.setTipoLezione(tipoLezione);
+		a.setTariffaOraria(tariffaOraria);
+		
+		return a;
+	}
+}

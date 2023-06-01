@@ -1,0 +1,60 @@
+package com.tutorMe.model;
+
+import com.auth.entity.User;
+import com.tutorMe.enums.TipoLezione;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Entity
+@Table(name = "annunci")
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
+public class Annuncio {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	
+	@Column(nullable = false)
+	private User user;
+	
+	@Column(nullable = false)
+	private String materia;
+	
+	@Column(nullable = false)
+	private String titoloAnnuncio;
+	
+	@Column(nullable = false)
+	private String descrizioneAnnuncio;
+	
+	@Column(nullable = false)
+	private TipoLezione tipoLezione;
+	
+	@Column(nullable = false)
+	private Integer tariffaOraria;
+
+	public Annuncio(User user, String materia, String titoloAnnuncio, String descrizioneAnnuncio,
+			TipoLezione tipoLezione, Integer tariffaOraria) {
+		super();
+		this.user = user;
+		this.materia = materia;
+		this.titoloAnnuncio = titoloAnnuncio;
+		this.descrizioneAnnuncio = descrizioneAnnuncio;
+		this.tipoLezione = tipoLezione;
+		this.tariffaOraria = tariffaOraria;
+	}
+
+	
+	
+	
+	
+}

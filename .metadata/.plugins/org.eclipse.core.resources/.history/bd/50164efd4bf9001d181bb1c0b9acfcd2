@@ -1,0 +1,106 @@
+package com.tutorMe.controller;
+
+import java.util.Date;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.auth.entity.User;
+import com.tutorMe.model.Insegnante;
+import com.tutorMe.model.Prenotazione;
+import com.tutorMe.service.PrenotazioneService;
+
+@RestController
+@RequestMapping("/prenotazioni")
+public class PrenotazioneController {
+	
+	@Autowired PrenotazioneService prenotazioneService;
+	
+	@GetMapping("/listaPrenotazioni")
+	public ResponseEntity<?> recuperaPrenotazioni(){
+		return new ResponseEntity<>(prenotazioneService.findAllPrenotazioni(), HttpStatus.OK);
+	}
+	
+	
+	@GetMapping("/listaPrenotazioniPageable")
+	public ResponseEntity<?> recuperaPrenotazioniPageable(Pageable pageable){
+		try {
+			return new ResponseEntity<> (prenotazioneService.getAllPrenotazioniPageable(pageable), HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<String> (e.getMessage(),HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	@PostMapping()
+	public ResponseEntity<?> registraPrenotazione(@RequestBody Prenotazione prenotazione){
+		try {
+			return new ResponseEntity<>(prenotazioneService.addPrenotazione(prenotazione), HttpStatus.CREATED);
+		} catch (Exception e) {
+			return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	@GetMapping("/trovaPrenotazione/{id}")
+	public ResponseEntity<?> trovaPrenotazione(@PathVariable Long id){
+		try {
+			return new ResponseEntity<>(prenotazioneService.findById(id),HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	@GetMapping("/trovaPrenotazioneByStudente/{idStudente}")
+	public ResponseEntity<?> trovaPrenotazioneDaUtente(@PathVariable Long idUtente){
+		try {
+			return new ResponseEntity<>(prenotazioneService.findByUtente(idUtente), HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	@GetMapping("/trovaPrenotazioneByInsegnante/{idInsegnante}")
+	public ResponseEntity<?> trovaprenotazioneDaInsegnante(@PathVariable Long idInsegnante){
+		try {
+			return new ResponseEntity<>(prenotazioneService.findByInsegnante(idInsegnante), HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<String>(e.getMessage(),HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	@GetMapping("/trovaPrenotazioneByData/{data}")
+	public ResponseEntity<?> trovaprenotazioneDaData(@PathVariable Date data){
+		try {
+			return new ResponseEntity<>(prenotazioneService.findByData(data), HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	@PutMapping
+	public ResponseEntity<?> modificaprenotazione(@RequestBody Prenotazione p, Long id){
+		p.setId(id);
+		try {
+			return new ResponseEntity<>(prenotazioneService.editPrenotazione(p), HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	public ResponseEntity<?> associaPrenotazioneAUtenteEInsegnante(@RequestBody Prenotazione prenotazione,
+																		@RequestBody User user, @RequestBody Insegnante insegnante){
+		try {
+			return new ResponseEntity<>(prenotazioneService.associaPrenotazioneAInsegnanteEutente(prenotazione, user, insegnante), HttpStatus.CREATED);
+		} catch (Exception e) {
+			return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+	}
+}

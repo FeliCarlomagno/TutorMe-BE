@@ -1,0 +1,98 @@
+package com.tutorMe.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+
+import com.tutorMe.model.Studente;
+import com.tutorMe.repository.StudenteRepository;
+
+import jakarta.persistence.EntityExistsException;
+import jakarta.persistence.EntityNotFoundException;
+
+@Service
+public class StudenteService {
+	
+	@Autowired StudenteRepository studenteRepository;
+	
+	
+	
+	//METODO TORNA UNA LISTA DI STUDENTI:
+	public List<Studente> findAllStudenti(){
+		return studenteRepository.findAll();
+	}
+	
+	//METODO RICERCA PER ID:
+	public Studente findById(Long id) {
+		if(!studenteRepository.existsById(id)) {
+			throw new EntityNotFoundException("Nessun studente associato a questo ID");
+		}
+		return studenteRepository.findById(id).get();
+	}
+	
+	//METODO RITORNA TUTTI PAGINATI:
+	public Page<Studente> getAllStudentiPageable(Pageable pageable){
+		if(studenteRepository.findAll().isEmpty()) {
+			throw new EntityNotFoundException("Nessuno studente in archivio");
+		}
+		return studenteRepository.findAll(pageable);
+	}
+	
+	//METDODO ORDINA STUDENTI DAL NOME:
+	public List<Studente> getAllStudentiPageabeleByName(){
+		if(studenteRepository.findAll().isEmpty()) {
+			throw new EntityNotFoundException("Nessuno studente in archivio");
+		}
+		return studenteRepository.findAllOrderByName();
+	}
+	
+	
+//	//METODO RICERCA PER CITTA:
+//	public List<Studente> findByCitta(String citta){
+//		if(!studenteRepository.findAll().isEmpty()) {
+//			throw new EntityNotFoundException("Nessuno studente in archivio");
+//		}
+//		return studenteRepository.findByCity(citta);
+//	}
+	
+	//METODO RICERCA PER PARTE DEL NOME:
+	public List<Studente> findByParteDelNome(String parteNome){
+		if(!studenteRepository.findAll().isEmpty()) {
+			throw new EntityNotFoundException("Archivio studenti vuoto");
+		}
+		
+		return studenteRepository.findByParteDelNome(parteNome);
+	}
+	
+//	//METODO AGGIUNGI STUDENTE:
+//	public String addStudente(Studente studente) {
+//		if(studenteRepository.existsById(studente.getId())) {
+//			throw new EntityExistsException("Impossibile aggiungere lo studente poichè ne esiste già uno con questo ID");
+//		}
+//		studenteRepository.save(studente);
+//		return "Studente aggiunto correttamente nel Database";
+//	}
+//	
+//	 //METODO ELIMINA SRUDENTE:
+//	public String deletStudenteById(Long id) {
+//		if(!studenteRepository.existsById(id)) {
+//			throw new EntityNotFoundException("Nessuno studente trovato con questo ID");
+//		}
+//		studenteRepository.deleteById(id);
+//		return "Studente eliminato correttamente dal Database";
+//	}
+	
+	//METODO AGGIORNA STUDENTE:
+	public Studente editStudente(Studente studente) {
+		if(!studenteRepository.existsById(studente.getId())) {
+			throw new EntityNotFoundException("Impossibile aggiornate lo studente, poichè non esiste nessuno studente con questo ID");
+		}
+		return studenteRepository.save(studente);
+	}
+	
+	
+	
+}
