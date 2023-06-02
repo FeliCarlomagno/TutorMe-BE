@@ -54,7 +54,8 @@ public class Annuncio {
 	@Enumerated(EnumType.STRING)
 	private List<TipoLezione> tipoLezione ;
 	
-	@OneToMany(mappedBy = "annuncio")
+	@OneToMany(mappedBy = "annuncio", cascade = CascadeType.ALL)
+	@JsonIgnoreProperties({"userPrenotato"})
 	private List<Prenotazione> listaPrenotazioniAnnuncio;
 	
 

@@ -81,4 +81,12 @@ public class AnnuncioService {
 		}
 	}
 	
+	public String eliminaAnnuncio (Long id) {
+		if(!annuncioRepository.existsById(id)) {
+			throw new EntityNotFoundException("Nessun Annuncio esistente con questo ID");
+		}
+		annuncioRepository.deleteById(id);
+		return "Annuncio eliminato correttamente";
+	}
+	
 }

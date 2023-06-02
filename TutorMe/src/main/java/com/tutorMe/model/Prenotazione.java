@@ -4,6 +4,9 @@ import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+
 import com.auth.entity.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -34,9 +37,9 @@ public class Prenotazione {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@OneToOne
-	@JsonIgnoreProperties({"listaAnnunci","listaPrenotazioni","password","citta","roles"})
-	private User userPrenotato;
+//	@ManyToOne
+//	//@JsonIgnoreProperties({"listaAnnunci","listaPrenotazioni","password","citta","roles"})
+//	private User userPrenotato;
 	
 	@ManyToOne
 	@JsonIgnoreProperties({"listaAnnunci","listaPrenotazioni","password","citta","roles"})
