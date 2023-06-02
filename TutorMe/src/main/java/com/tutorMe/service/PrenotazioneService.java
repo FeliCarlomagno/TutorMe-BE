@@ -107,7 +107,7 @@ public class PrenotazioneService {
 			a.getListaPrenotazioniAnnuncio().add(p);
 			u.getListaPrenotazioni().add(p);
 			p.setUserPrenotante(u);
-//			p.setUserPrenotato(annuncio.getUser());
+			p.setInsegnante(annuncio.getUser());
 			p.setAnnuncio(a);
 		return prenotazioneRepository.save(p);
 		}else {

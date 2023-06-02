@@ -37,9 +37,9 @@ public class Prenotazione {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-//	@ManyToOne
-//	//@JsonIgnoreProperties({"listaAnnunci","listaPrenotazioni","password","citta","roles"})
-//	private User userPrenotato;
+	@ManyToOne
+	@JsonIgnoreProperties({"listaAnnunci","listaPrenotazioni","password","citta","roles"})
+	private User insegnante;
 	
 	@ManyToOne
 	@JsonIgnoreProperties({"listaAnnunci","listaPrenotazioni","password","citta","roles"})

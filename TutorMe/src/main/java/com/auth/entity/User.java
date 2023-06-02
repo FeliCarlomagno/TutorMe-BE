@@ -65,4 +65,9 @@ public class User {
    @OneToMany (fetch = FetchType.EAGER, mappedBy = "userPrenotante", cascade = CascadeType.MERGE)
    @JsonIgnoreProperties({"userPrenotante"}) //<-- PER NON MOSTRARE NEL JSON IL TUO NOME NELLA LISTA PRENOTAZIONE
    private List<Prenotazione> listaPrenotazioni;
+   
+   
+   @OneToMany(fetch = FetchType.EAGER, mappedBy = "insegnante", cascade = CascadeType.MERGE)
+   @JsonIgnoreProperties({"insegnante"})
+   private List<Prenotazione> listaPrenotazioniInsegnante;
 }
