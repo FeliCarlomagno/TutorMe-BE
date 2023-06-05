@@ -28,14 +28,14 @@ public class PrenotazioneController {
 	@Autowired PrenotazioneService prenotazioneService;
 	
 	@GetMapping("/listaPrenotazioni")
-//	@PreAuthorize("hasRole('USER')or hasRole('ADMIN')")
+	@PreAuthorize("hasRole('USER')or hasRole('ADMIN')")
 	public ResponseEntity<?> recuperaPrenotazioni(){
 		return new ResponseEntity<>(prenotazioneService.findAllPrenotazioni(), HttpStatus.OK);
 	}
 	
 	
 	@GetMapping("/listaPrenotazioniPageable")
-//	@PreAuthorize("hasRole('USER')or hasRole('ADMIN')")
+	@PreAuthorize("hasRole('USER')or hasRole('ADMIN')")
 	public ResponseEntity<?> recuperaPrenotazioniPageable(Pageable pageable){
 		try {
 			return new ResponseEntity<> (prenotazioneService.getAllPrenotazioniPageable(pageable), HttpStatus.OK);
@@ -45,7 +45,7 @@ public class PrenotazioneController {
 	}
 	
 	@PostMapping()
-//	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<?> registraPrenotazione(@RequestBody Prenotazione prenotazione){
 		try {
 			return new ResponseEntity<>(prenotazioneService.addPrenotazione(prenotazione), HttpStatus.CREATED);
@@ -55,7 +55,7 @@ public class PrenotazioneController {
 	}
 	
 	@GetMapping("/trovaPrenotazione/{id}")
-//	@PreAuthorize("hasRole('USER')or hasRole('ADMIN')")
+	@PreAuthorize("hasRole('USER')or hasRole('ADMIN')")
 	public ResponseEntity<?> trovaPrenotazione(@PathVariable Long id){
 		try {
 			return new ResponseEntity<>(prenotazioneService.findById(id),HttpStatus.OK);
@@ -65,7 +65,7 @@ public class PrenotazioneController {
 	}
 	
 	@GetMapping("/trovaPrenotazioneByStudente/{idStudente}")
-//	@PreAuthorize("hasRole('USER')or hasRole('ADMIN')")
+	@PreAuthorize("hasRole('USER')or hasRole('ADMIN')")
 	public ResponseEntity<?> trovaPrenotazioneDaUtente(@PathVariable Long idUtente){
 		try {
 			return new ResponseEntity<>(prenotazioneService.findByUtente(idUtente), HttpStatus.OK);
@@ -77,7 +77,7 @@ public class PrenotazioneController {
 
 	
 	@GetMapping("/trovaPrenotazioneByData/{data}")
-//	@PreAuthorize("hasRole('USER')or hasRole('ADMIN')")
+	@PreAuthorize("hasRole('USER')or hasRole('ADMIN')")
 	public ResponseEntity<?> trovaPrenotazioneDaData(@PathVariable Date data){
 		try {
 			return new ResponseEntity<>(prenotazioneService.findByData(data), HttpStatus.OK);
@@ -87,7 +87,7 @@ public class PrenotazioneController {
 	}
 	
 	@PutMapping
-//	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<?> modificaPrenotazione(@RequestBody Prenotazione p, Long id){
 		p.setId(id);
 		try {
@@ -99,7 +99,7 @@ public class PrenotazioneController {
 	
 	//METODO FUNZIONANTE MA NON SETTO LO USER PRENOTANTE:
 	@PostMapping("/effettuaPrenotazione/{idAnnuncio}/{username}")
-//	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<?> effettuaPrenotazione(@RequestBody Prenotazione p, @PathVariable Long idAnnuncio, @PathVariable String username){
 		try {
 			return new ResponseEntity<>(prenotazioneService.creaPrenotazioneDaAnnuncio(p, idAnnuncio, username), HttpStatus.OK);
@@ -109,7 +109,7 @@ public class PrenotazioneController {
 	}
 	
 	@DeleteMapping("/eliminaPrenotazione/{idPrenotazione}")
-//	@PreAuthorize("hasRole('USER')or hasRole('ADMIN')")
+	@PreAuthorize("hasRole('USER')or hasRole('ADMIN')")
 	public ResponseEntity<?> eliminaPrenotazione(@PathVariable Long idPrenotazione){
 		try {
 			return new ResponseEntity<>(prenotazioneService.deletePrenotazione(idPrenotazione),HttpStatus.OK);
