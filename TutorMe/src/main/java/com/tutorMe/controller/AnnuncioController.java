@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -39,7 +40,7 @@ public class AnnuncioController {
     
     
     @GetMapping("/listaAnnunci")
-    @PreAuthorize("hasRole('USER')or hasRole('ADMIN')")
+//    @PreAuthorize("hasRole('USER')or hasRole('ADMIN')")
     public ResponseEntity<?> tuttiAnnunci(){
     		return new ResponseEntity<>(annuncioService.findAllAnnunci(), HttpStatus.OK);
     }
@@ -82,6 +83,18 @@ public class AnnuncioController {
     public ResponseEntity<?> filtraAnnuncioPerTipo(@PathVariable TipoLezione tipoAnnuncio){
     	try {
 			return new ResponseEntity<> (annuncioService.findByTipoLezione(tipoAnnuncio),HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+    }
+    
+    @PutMapping("modificaAnnuncio/{idAnnuncio}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<?> modificaAnnuncio(@RequestBody Annuncio a, @PathVariable Long idAnnuncio){
+    	a.setId(idAnnuncio);
+    	
+    	try {
+			return new ResponseEntity<>(annuncioService.editAnnuncio(a), HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}

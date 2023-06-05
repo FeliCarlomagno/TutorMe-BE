@@ -99,7 +99,7 @@ public class AuthController {
     }
     
     @GetMapping("/trovaUtenteByUsername/{username}")
-  @PreAuthorize("hasRole('ADMIN')or hasRole('USER')")
+  //@PreAuthorize("hasRole('ADMIN')or hasRole('USER')")
     public ResponseEntity<?> trovaUtenteByUsername (@PathVariable String username){
     	try {
 			return new ResponseEntity<>(userServiceImpl.findByUsername(username),HttpStatus.OK);

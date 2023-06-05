@@ -86,10 +86,10 @@ public class PrenotazioneController {
 		}
 	}
 	
-	@PutMapping
+	@PutMapping("/modificaPrenotazione/{idPrenotazione}")
 	@PreAuthorize("hasRole('ADMIN')")
-	public ResponseEntity<?> modificaPrenotazione(@RequestBody Prenotazione p, Long id){
-		p.setId(id);
+	public ResponseEntity<?> modificaPrenotazione(@RequestBody Prenotazione p, @PathVariable Long idPrenotazione){
+		p.setId(idPrenotazione);
 		try {
 			return new ResponseEntity<>(prenotazioneService.editPrenotazione(p), HttpStatus.OK);
 		} catch (Exception e) {

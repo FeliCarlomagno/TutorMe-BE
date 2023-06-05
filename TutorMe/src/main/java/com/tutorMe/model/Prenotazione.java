@@ -54,12 +54,12 @@ public class Prenotazione {
 	@JsonIgnore
 	private Annuncio annuncio;
 
-	public Prenotazione(User userPrenotante,LocalDate dataPrenotazione, StringBuilder descrizionePrenotazione) {
-		super();
-		this.dataPrenotazione = dataPrenotazione;
-		this.descrizionePrenotazione = descrizionePrenotazione;
-		
-	}
+//	public Prenotazione(User userPrenotante,LocalDate dataPrenotazione, StringBuilder descrizionePrenotazione) {
+//		super();
+//		this.dataPrenotazione = dataPrenotazione;
+//		this.descrizionePrenotazione = descrizionePrenotazione;
+//		
+//	}
 
 	
 

@@ -42,7 +42,6 @@ public class User {
 //    private Integer numeroTelefono;
     
     @Column(nullable = false)
-    
     private String password;
     
     private String citta;
