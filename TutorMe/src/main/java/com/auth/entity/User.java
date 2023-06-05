@@ -47,7 +47,7 @@ public class User {
     
     private String citta;
     
-    private String descrizione;
+    private StringBuilder descrizione;
     
     @Lob
     private byte[] image;
@@ -63,7 +63,7 @@ public class User {
    private List<Annuncio> listaAnnunci;
    
    @OneToMany (fetch = FetchType.EAGER, mappedBy = "userPrenotante", cascade = CascadeType.MERGE)
-   @JsonIgnoreProperties({"userPrenotante"}) //<-- PER NON MOSTRARE NEL JSON IL TUO NOME NELLA LISTA PRENOTAZIONE
+   @JsonIgnoreProperties({"userPrenotante"})
    private List<Prenotazione> listaPrenotazioni;
    
    

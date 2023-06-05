@@ -21,7 +21,7 @@ public class AnnuncioConfiguration {
 	
 	@Bean("annuncioCustom")
 	@Scope("prototype")
-	public Annuncio annuncioCustom(User u, List<String>listaMaterie,String titoloAnnuncio, String descrizioneAnnuncio,Integer tariffaOraria
+	public Annuncio annuncioCustom(User u, List<String>listaMaterie,StringBuilder titoloAnnuncio, StringBuilder descrizioneAnnuncio,Integer tariffaOraria
 			,List<TipoLezione> tipoLezione
 			) {
 		Annuncio a = new Annuncio();
