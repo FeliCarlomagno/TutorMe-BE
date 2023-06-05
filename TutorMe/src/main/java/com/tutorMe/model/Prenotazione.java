@@ -48,13 +48,13 @@ public class Prenotazione {
 	@Column(nullable = false)
 	private LocalDate dataPrenotazione;
 	
-	private String descrizionePrenotazione;
+	private StringBuilder descrizionePrenotazione;
 		
 	@ManyToOne
 	@JsonIgnore
 	private Annuncio annuncio;
 
-	public Prenotazione(User userPrenotante,LocalDate dataPrenotazione, String descrizionePrenotazione) {
+	public Prenotazione(User userPrenotante,LocalDate dataPrenotazione, StringBuilder descrizionePrenotazione) {
 		super();
 		this.dataPrenotazione = dataPrenotazione;
 		this.descrizionePrenotazione = descrizionePrenotazione;
