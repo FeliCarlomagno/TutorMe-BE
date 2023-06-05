@@ -42,10 +42,10 @@ public class Annuncio {
 	private List<String> listaMaterie;
 	
 	@Column(nullable = false)
-	private String titoloAnnuncio;
+	private StringBuilder titoloAnnuncio;
 	
 	@Column(nullable = false)
-	private String descrizioneAnnuncio;
+	private StringBuilder descrizioneAnnuncio;
 	
 	@Column(nullable = false)
 	private Integer tariffaOraria;
@@ -59,7 +59,7 @@ public class Annuncio {
 	private List<Prenotazione> listaPrenotazioniAnnuncio;
 	
 
-		public Annuncio(User u,List<String> listaMaterie, String titoloAnnuncio, String descrizioneAnnuncio, Integer tariffaOraria
+		public Annuncio(User u,List<String> listaMaterie, StringBuilder titoloAnnuncio, StringBuilder descrizioneAnnuncio, Integer tariffaOraria
 				,List<TipoLezione> tipoLezione, List<Prenotazione> listaPrenotazioniAnnuncio
 				) {
 			super();
