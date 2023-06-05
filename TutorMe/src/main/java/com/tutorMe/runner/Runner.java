@@ -51,7 +51,7 @@ public class Runner implements ApplicationRunner {
 		List<TipoLezione> tipoLezione = new ArrayList<>();
 		tipoLezione.add(TipoLezione.ONLINE);
 		
-	     Annuncio a = annuncio.getObject(userRepo.findById(1l).get(),listaMaterie, "nuovoAnnuncio","descrizione prova", 15,tipoLezione);
+	     //Annuncio a = annuncio.getObject(userRepo.findById(1l).get(),listaMaterie, "nuovoAnnuncio","descrizione prova", 15,tipoLezione);
 		 //annuncioRepo.save(a);
 		
 		
