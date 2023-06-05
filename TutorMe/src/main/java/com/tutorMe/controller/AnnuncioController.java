@@ -28,7 +28,7 @@ public class AnnuncioController {
 	
 	
     @PostMapping("/creaAnnuncio/{username}")
-//    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> creaAnnuncio(@RequestBody Annuncio a, @PathVariable String username){
     	try {
 			return new ResponseEntity<>(annuncioService.associaAnnuncioAuser(username,a),HttpStatus.CREATED);
@@ -39,7 +39,7 @@ public class AnnuncioController {
     
     
     @GetMapping("/listaAnnunci")
-//    @PreAuthorize("hasRole('USER')or hasRole('ADMIN')")
+    @PreAuthorize("hasRole('USER')or hasRole('ADMIN')")
     public ResponseEntity<?> tuttiAnnunci(){
     		return new ResponseEntity<>(annuncioService.findAllAnnunci(), HttpStatus.OK);
     }
@@ -56,7 +56,7 @@ public class AnnuncioController {
     
     //1- FILTRA ANNUNCI PER MATERIA
     @GetMapping("/listaAnnunciPerMateria/{materia}")
-//    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('USER')")
     public ResponseEntity<?> filtraAnnunciPerMateria(@PathVariable String materia){
     	try {
 			return new ResponseEntity<>(annuncioService.findByMateria(materia),HttpStatus.OK);
@@ -67,7 +67,7 @@ public class AnnuncioController {
     
     //2 - FILTRA ANNUNCI PER TARIFFA
     @GetMapping("listaAnnunciPerTariffa/")
-//    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('USER')")
     public ResponseEntity<?>filtraAnnuncioPerTariffa(@PathVariable Integer tariffa){
     	try {
 			return new ResponseEntity<>(annuncioService.findByTariffa(tariffa),HttpStatus.OK);
@@ -78,7 +78,7 @@ public class AnnuncioController {
     
     //3- FILTRA ANNUNCIO PER TIPO DI LEZIONE:
     @GetMapping("/listaAnnunciPerTipo/{tipoLezione}")
-//    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('USER')")
     public ResponseEntity<?> filtraAnnuncioPerTipo(@PathVariable TipoLezione tipoAnnuncio){
     	try {
 			return new ResponseEntity<> (annuncioService.findByTipoLezione(tipoAnnuncio),HttpStatus.OK);
