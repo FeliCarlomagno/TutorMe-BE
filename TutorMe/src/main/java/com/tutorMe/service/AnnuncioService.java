@@ -35,12 +35,6 @@ public class AnnuncioService {
 		return annuncioRepository.findAll();
 	}
 	
-	public Annuncio editAnnuncio(Annuncio annuncio) {
-		if(!annuncioRepository.existsById(annuncio.getId())) {
-			throw new EntityNotFoundException("Impossibile aggiornare l'annuncio poichè non esiste un annuncio con questo ID");
-		}
-		return annuncioRepository.save(annuncio);
-	}
 	
 	public Annuncio findById(Long id) {
 		if(!annuncioRepository.existsById(id)) {
@@ -95,6 +89,18 @@ public class AnnuncioService {
 		}
 		annuncioRepository.deleteById(id);
 		return "Annuncio eliminato correttamente";
+	}
+	
+	public Annuncio editAnnuncio(Annuncio a, Long idAnnuncio, Long idUser ) {
+		if(!userRepository.existsById(idUser)) {
+			throw new EntityNotFoundException("Nessun utente presente con questo Username");
+		}if(!annuncioRepository.existsById(idAnnuncio)) {
+			throw new EntityNotFoundException("Nessun Annuncio esistente con questo ID");
+		}
+		a.setUser(userRepository.findById(idUser).get());
+		a.setId(idAnnuncio);
+		return annuncioRepository.save(a);
+			
 	}
 	
 }

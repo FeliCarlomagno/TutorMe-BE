@@ -46,7 +46,8 @@ public class User {
     
     private String citta;
     
-    private StringBuilder descrizione;
+    @Column(nullable = false, length = 2048)
+    private String descrizione;
     
     @Lob
     private byte[] image;

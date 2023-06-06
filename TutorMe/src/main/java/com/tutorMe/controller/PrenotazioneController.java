@@ -99,7 +99,7 @@ public class PrenotazioneController {
 	
 	//METODO FUNZIONANTE MA NON SETTO LO USER PRENOTANTE:
 	@PostMapping("/effettuaPrenotazione/{idAnnuncio}/{username}")
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('USER')or hasRole('ADMIN')")
 	public ResponseEntity<?> effettuaPrenotazione(@RequestBody Prenotazione p, @PathVariable Long idAnnuncio, @PathVariable String username){
 		try {
 			return new ResponseEntity<>(prenotazioneService.creaPrenotazioneDaAnnuncio(p, idAnnuncio, username), HttpStatus.OK);
@@ -117,6 +117,8 @@ public class PrenotazioneController {
 			return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 	}
+	
+	
 
 		
 }

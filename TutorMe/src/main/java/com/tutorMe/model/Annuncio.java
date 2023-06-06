@@ -22,30 +22,33 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name="annunci")
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
+@Getter
+@Setter
 public class Annuncio {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@ManyToOne(cascade = CascadeType.MERGE)
+	@ManyToOne
 	@JsonIgnoreProperties({"id","listaAnnunci","citta","password", "listaMaterie","roles","listaPrenotazioni"})
 	private User user;
 	
 	@Column(nullable = false)
 	private List<String> listaMaterie;
 	
-	@Column(nullable = false)
-	private StringBuilder titoloAnnuncio;
+	@Column(nullable = false, length = 2048)
+	private String titoloAnnuncio;
 	
-	@Column(nullable = false)
-	private StringBuilder descrizioneAnnuncio;
+	@Column(nullable = false , length = 2048)
+	private String descrizioneAnnuncio;
 	
 	@Column(nullable = false)
 	private Integer tariffaOraria;
@@ -59,7 +62,7 @@ public class Annuncio {
 	private List<Prenotazione> listaPrenotazioniAnnuncio;
 	
 
-		public Annuncio(User u,List<String> listaMaterie, StringBuilder titoloAnnuncio, StringBuilder descrizioneAnnuncio, Integer tariffaOraria
+		public Annuncio(User u,List<String> listaMaterie, String titoloAnnuncio, String descrizioneAnnuncio, Integer tariffaOraria
 				,List<TipoLezione> tipoLezione, List<Prenotazione> listaPrenotazioniAnnuncio
 				) {
 			super();
@@ -71,6 +74,8 @@ public class Annuncio {
 			this.tipoLezione = tipoLezione;
 			this.listaPrenotazioniAnnuncio = listaPrenotazioniAnnuncio;
 		}
+		
+		
 	
 	
 

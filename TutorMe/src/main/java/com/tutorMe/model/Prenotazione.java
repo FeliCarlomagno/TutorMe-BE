@@ -48,7 +48,7 @@ public class Prenotazione {
 	@Column(nullable = false)
 	private LocalDate dataPrenotazione;
 	
-	private StringBuilder descrizionePrenotazione;
+	private String descrizionePrenotazione;
 		
 	@ManyToOne
 	@JsonIgnore
