@@ -101,7 +101,7 @@ public class AnnuncioController {
 //    }
     
     @DeleteMapping("/eliminaAnnuncio/{idAnnuncio}")
-    @PreAuthorize("hasRole('USER')")
+//    @PreAuthorize("hasRole('USER') or hasRole ('ADMIN')")
     public ResponseEntity<?> eliminaAnnuncio (@PathVariable Long idAnnuncio){
     	try {
 			return new ResponseEntity<>(annuncioService.eliminaAnnuncio(idAnnuncio), HttpStatus.OK);
@@ -111,7 +111,7 @@ public class AnnuncioController {
     }
     
     @PutMapping("modificaAnnuncio/{idAnnuncio}/{idUser}")
-    //@PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<?> modificaAnnuncio(@RequestBody Annuncio a, @PathVariable Long idAnnuncio,@PathVariable Long idUser){
     	try {
 			return new ResponseEntity<>(annuncioService.editAnnuncio(a, idAnnuncio, idUser), HttpStatus.OK);
