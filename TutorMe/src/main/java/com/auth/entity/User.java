@@ -46,7 +46,7 @@ public class User {
     
     private String citta;
     
-    @Column(nullable = false, length = 2048)
+    @Column(length = 2048)
     private String descrizione;
     
     @Lob
