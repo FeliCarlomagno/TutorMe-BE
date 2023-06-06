@@ -44,7 +44,7 @@ public class User {
     @Column(nullable = false)
     private String password;
     
-    private String citta;
+ //   private String citta;
     
     @Column(length = 2048)
     private String descrizione;
@@ -59,15 +59,15 @@ public class User {
     )
     private Set<Role> roles = new HashSet<>();
    
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.MERGE)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.ALL)
    private List<Annuncio> listaAnnunci;
    
-   @OneToMany (fetch = FetchType.EAGER, mappedBy = "userPrenotante", cascade = CascadeType.MERGE)
+   @OneToMany (fetch = FetchType.EAGER, mappedBy = "userPrenotante", cascade = CascadeType.ALL)
    @JsonIgnoreProperties({"userPrenotante"})
    private List<Prenotazione> listaPrenotazioni;
    
    
-   @OneToMany(fetch = FetchType.EAGER, mappedBy = "insegnante", cascade = CascadeType.MERGE)
+   @OneToMany(fetch = FetchType.EAGER, mappedBy = "insegnante", cascade = CascadeType.ALL)
    @JsonIgnoreProperties({"insegnante"})
    private List<Prenotazione> listaPrenotazioniInsegnante;
 }
