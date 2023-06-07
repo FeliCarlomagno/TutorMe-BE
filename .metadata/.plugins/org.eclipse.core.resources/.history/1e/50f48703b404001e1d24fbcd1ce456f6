@@ -100,7 +100,7 @@ public class AnnuncioController {
     }
     
     @PutMapping("modificaAnnuncio/{idAnnuncio}/{idUser}")
-//    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<?> modificaAnnuncio(@RequestBody Annuncio a, @PathVariable Long idAnnuncio,@PathVariable Long idUser){
     	try {
 			return new ResponseEntity<>(annuncioService.editAnnuncio(a, idAnnuncio, idUser), HttpStatus.OK);

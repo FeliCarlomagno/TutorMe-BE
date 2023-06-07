@@ -109,7 +109,7 @@ public class PrenotazioneController {
 	}
 	
 	@DeleteMapping("/eliminaPrenotazione/{idPrenotazione}")
-//	@PreAuthorize("hasRole('USER')or hasRole('ADMIN')")
+	@PreAuthorize("hasRole('USER')or hasRole('ADMIN')")
 	public ResponseEntity<?> eliminaPrenotazione(@PathVariable Long idPrenotazione){
 		try {
 			return new ResponseEntity<>(prenotazioneService.deletePrenotazione(idPrenotazione),HttpStatus.OK);

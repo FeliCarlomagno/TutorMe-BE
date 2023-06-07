@@ -142,7 +142,12 @@ public class AuthServiceImpl implements AuthService {
   		return userRepository.findByParteDelNome(parteNome);
   	}
   	
-  
+  	public List<User> findByCity(String citta){
+  		if(!userRepository.findAll().isEmpty()) {
+  			throw new EntityNotFoundException("Archivio utenti vuoto");
+  		}
+  		return userRepository.findByCity(citta);
+  	}
   	
   	
   	public String deleteUserById(Long id) {

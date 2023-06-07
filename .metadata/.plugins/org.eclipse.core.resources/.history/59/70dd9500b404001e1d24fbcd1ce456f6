@@ -29,7 +29,7 @@ public class AnnuncioController {
 	
 	
     @PostMapping("/creaAnnuncio/{username}")
-//    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> creaAnnuncio(@RequestBody Annuncio a, @PathVariable String username){
     	try {
 			return new ResponseEntity<>(annuncioService.associaAnnuncioAuser(username,a),HttpStatus.CREATED);
@@ -57,7 +57,7 @@ public class AnnuncioController {
     
     //1- FILTRA ANNUNCI PER MATERIA
     @GetMapping("/listaAnnunciPerMateria/{materia}")
-//    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('USER')")
     public ResponseEntity<?> filtraAnnunciPerMateria(@PathVariable String materia){
     	try {
 			return new ResponseEntity<>(annuncioService.findByMateria(materia),HttpStatus.OK);
@@ -68,7 +68,7 @@ public class AnnuncioController {
     
     //2 - FILTRA ANNUNCI PER TARIFFA
     @GetMapping("listaAnnunciPerTariffa/")
-//    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('USER')")
     public ResponseEntity<?>filtraAnnuncioPerTariffa(@PathVariable Integer tariffa){
     	try {
 			return new ResponseEntity<>(annuncioService.findByTariffa(tariffa),HttpStatus.OK);
@@ -79,7 +79,7 @@ public class AnnuncioController {
     
     //3- FILTRA ANNUNCIO PER TIPO DI LEZIONE:
     @GetMapping("/listaAnnunciPerTipo/{tipoLezione}")
-//    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('USER')")
     public ResponseEntity<?> filtraAnnuncioPerTipo(@PathVariable TipoLezione tipoAnnuncio){
     	try {
 			return new ResponseEntity<> (annuncioService.findByTipoLezione(tipoAnnuncio),HttpStatus.OK);
@@ -88,7 +88,18 @@ public class AnnuncioController {
 		}
     }
     
-
+//    @PutMapping("modificaAnnuncio/{idAnnuncio}/{username}")
+//    //@PreAuthorize("hasRole('USER')")
+//    public ResponseEntity<?> modificaAnnuncio(@RequestBody Annuncio a, @PathVariable Long idAnnuncio, @PathVariable String username){
+//    	a.setId(idAnnuncio);
+//    	a.setUser(userServiceImpl.findByUsername(username));
+//    	try {
+//			return new ResponseEntity<>(annuncioService.editAnnuncio(a), HttpStatus.OK);
+//		} catch (Exception e) {
+//			return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+//		}
+//    }
+    
     @DeleteMapping("/eliminaAnnuncio/{idAnnuncio}")
 //    @PreAuthorize("hasRole('USER') or hasRole ('ADMIN')")
     public ResponseEntity<?> eliminaAnnuncio (@PathVariable Long idAnnuncio){
@@ -100,7 +111,7 @@ public class AnnuncioController {
     }
     
     @PutMapping("modificaAnnuncio/{idAnnuncio}/{idUser}")
-//    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<?> modificaAnnuncio(@RequestBody Annuncio a, @PathVariable Long idAnnuncio,@PathVariable Long idUser){
     	try {
 			return new ResponseEntity<>(annuncioService.editAnnuncio(a, idAnnuncio, idUser), HttpStatus.OK);

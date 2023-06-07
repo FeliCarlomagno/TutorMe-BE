@@ -63,13 +63,13 @@ public class AuthController {
     }
     //-----------------------------------------------------METODI ----------------------------------------------------------------------------------------//  
     @GetMapping("/listaUtenti")
-//    @PreAuthorize("hasRole('USER') or hasRole ('ADMIN')")
+    @PreAuthorize("hasRole('USER')")
     public ResponseEntity<?> recuperaUtenti(){
     	return new ResponseEntity<>(userServiceImpl.findtAllUser(),HttpStatus.OK);
     }
     
     @GetMapping("/listaUtenti/paginati")
-//    @PreAuthorize("hasRole('USER') or hasRole ('ADMIN')")
+    @PreAuthorize("hasRole('USER')")
     public ResponseEntity<?> recuperaUtentiPageable(Pageable pageable){
     	try {
 			return new ResponseEntity<>(userServiceImpl.getAllUserPageable(pageable),HttpStatus.FOUND);
@@ -79,7 +79,7 @@ public class AuthController {
     }
     
     @GetMapping("/listaUtenti/paginatiPerNome")
-//    @PreAuthorize("hasRole('USER') or hasRole ('ADMIN')")
+    @PreAuthorize("hasRole('USER')or hasRole('ADMIN')")
     public ResponseEntity<?> recuperaUtentiPageableByNome(Pageable pageable){
     	try {
     		return new ResponseEntity<>(userServiceImpl.getAllUserPageableByName(),HttpStatus.FOUND);
@@ -89,7 +89,7 @@ public class AuthController {
     }
     
     @GetMapping("/trovaUtente/{id}")
-//    @PreAuthorize("hasRole('USER') or hasRole ('ADMIN')")
+    @PreAuthorize("hasRole('USER')or hasRole('ADMIN')")
     public ResponseEntity<?> trovaUtente (@PathVariable Long id){
     	try {
 			return new ResponseEntity<>(userServiceImpl.findById(id),HttpStatus.OK);
@@ -99,7 +99,7 @@ public class AuthController {
     }
     
     @GetMapping("/trovaUtenteByUsername/{username}")
-//    @PreAuthorize("hasRole('USER') or hasRole ('ADMIN')")
+  //@PreAuthorize("hasRole('ADMIN')or hasRole('USER')")
     public ResponseEntity<?> trovaUtenteByUsername (@PathVariable String username){
     	try {
 			return new ResponseEntity<>(userServiceImpl.findByUsername(username),HttpStatus.OK);
@@ -109,7 +109,7 @@ public class AuthController {
     }
     
     @PutMapping("/modificaUtente/{id}")
-//    @PreAuthorize("hasRole('USER') or hasRole ('ADMIN')")
+    @PreAuthorize("hasRole('USER')or hasRole('ADMIN')")
     public ResponseEntity<?> modificaUtente(@RequestBody User u, @PathVariable Long id){
     	u.setId(id);
     	try {
@@ -120,7 +120,7 @@ public class AuthController {
     }
     
     @DeleteMapping("/eliminaUtente/{id}")
-//    @PreAuthorize("hasRole('USER') or hasRole ('ADMIN')")
+    @PreAuthorize("hasRole('USER')or hasRole('ADMIN')")
     public ResponseEntity<?> eliminaUtente(@PathVariable Long id){
     	try {
 			return new ResponseEntity<>(userServiceImpl.deleteUserById(id), HttpStatus.OK);
@@ -131,7 +131,7 @@ public class AuthController {
     
     //METODO SETTA IMMAGINE
 	@PutMapping("/setImmagine/{username}")
-	@PreAuthorize("hasRole('USER') or hasRole ('ADMIN')")
+	@PreAuthorize("hasRole ('USER')")
 	public  ResponseEntity<?> settaImmagine(@PathVariable String username, @RequestParam("image") MultipartFile file){
 		try {
 			return new ResponseEntity<>(userServiceImpl.setUserImage(username, file), HttpStatus.OK);
