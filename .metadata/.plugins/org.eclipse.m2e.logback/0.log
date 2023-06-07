@@ -2238,3 +2238,6 @@
 2023-06-07 03:55:24,233 [Worker-212: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src\main\resources to target\classes
 2023-06-07 03:55:24,238 [Worker-212: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 0 resource from src\main\resources to target\classes
 2023-06-07 03:55:24,240 [Worker-212: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\Users\Feliciano\Desktop\CAPSTONE PROJECT\TutorMe\TutorMe\src\test\resources
+2023-06-07 04:18:15,388 [Worker-218: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src\main\resources to target\classes
+2023-06-07 04:18:15,394 [Worker-218: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 0 resource from src\main\resources to target\classes
+2023-06-07 04:18:15,396 [Worker-218: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\Users\Feliciano\Desktop\CAPSTONE PROJECT\TutorMe\TutorMe\src\test\resources
