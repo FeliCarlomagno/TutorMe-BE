@@ -168,6 +168,12 @@ public class AuthServiceImpl implements AuthService {
 		return userRepository.save(u);
 	}
 	
+	public List<User> listaPreferiti(User u){
+		if(!userRepository.findByUsername(u.getUsername()) {
+			
+		}
+	}
+	  	
   	
     
 }

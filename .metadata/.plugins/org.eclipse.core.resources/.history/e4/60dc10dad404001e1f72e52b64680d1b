@@ -143,6 +143,8 @@ public class AuthServiceImpl implements AuthService {
   	}
   	
   
+  	
+  	
   	public String deleteUserById(Long id) {
   		if(!userRepository.existsById(id)) {
   			throw new EntityNotFoundException("Nessuno utente trovato con questo ID");
@@ -167,7 +169,7 @@ public class AuthServiceImpl implements AuthService {
 		u.setImage(image.getBytes());
 		return userRepository.save(u);
 	}
-	
+	  	
   	
     
 }

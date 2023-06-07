@@ -168,6 +168,15 @@ public class AuthServiceImpl implements AuthService {
 		return userRepository.save(u);
 	}
 	
+	public User listaPreferiti(String username){
+		if(!userRepository.existsByUsername(username)) {
+			throw new EntityNotFoundException("Nessun utente con questo id trovato");
+		}
+		User u = userRepository.findByUsername(username).get();
+		u.getListaPreferiti().add(u);
+		return userRepository.save(u);
+	}
+	  	
   	
     
 }
