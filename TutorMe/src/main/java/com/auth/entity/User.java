@@ -59,15 +59,15 @@ public class User {
     )
     private Set<Role> roles = new HashSet<>();
    
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.MERGE)
    private List<Annuncio> listaAnnunci;
    
-   @OneToMany (fetch = FetchType.EAGER, mappedBy = "userPrenotante", cascade = CascadeType.ALL)
+   @OneToMany (fetch = FetchType.EAGER, mappedBy = "userPrenotante", cascade = CascadeType.MERGE)
    @JsonIgnoreProperties({"userPrenotante"})
    private List<Prenotazione> listaPrenotazioni;
    
    
-   @OneToMany(fetch = FetchType.EAGER, mappedBy = "insegnante", cascade = CascadeType.ALL)
+   @OneToMany(fetch = FetchType.EAGER, mappedBy = "insegnante", cascade = CascadeType.MERGE)
    @JsonIgnoreProperties({"insegnante"})
    private List<Prenotazione> listaPrenotazioniInsegnante;
 }
