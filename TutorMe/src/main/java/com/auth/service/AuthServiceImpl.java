@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -24,6 +25,9 @@ import com.auth.payload.RegisterDto;
 import com.auth.repository.RoleRepository;
 import com.auth.repository.UserRepository;
 import com.auth.security.JwtTokenProvider;
+import com.tutorMe.model.Annuncio;
+import com.tutorMe.repository.AnnuncioRepository;
+import com.tutorMe.service.AnnuncioService;
 
 import jakarta.persistence.EntityNotFoundException;
 
@@ -32,8 +36,10 @@ public class AuthServiceImpl implements AuthService {
 
     private AuthenticationManager authenticationManager;
     private UserRepository userRepository;
-    private RoleRepository roleRepository;
+    private RoleRepository roleRepository; 
+    @Autowired AnnuncioRepository annuncioRepo;
     private PasswordEncoder passwordEncoder;
+   
     private JwtTokenProvider jwtTokenProvider;
 
 
@@ -151,12 +157,54 @@ public class AuthServiceImpl implements AuthService {
   		return "Utente eliminato correttamente";
   	}
   	
+  	
+ ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 	
+  	
+ 	
   	public User editUser(User user) {
   		if(!userRepository.existsById(user.getId())) {
   			throw new EntityNotFoundException("Impossibile aggiornate l'utente, poichè non esiste nessuno utente con questo ID");
   		}
-  		return userRepository.save(user);
+  		
+  		User existingUser = userRepository.findById(user.getId()).orElse(null);
+  		if(existingUser != null) {
+  			existingUser.setId(user.getId());
+  			existingUser.setName(user.getName());
+  			existingUser.setUsername(user.getUsername());
+  			existingUser.setEmail(user.getEmail());
+  			existingUser.setPassword(user.getPassword());
+  			existingUser.setDescrizione(user.getDescrizione());
+ 			existingUser.setImage(user.getImage());
+ 			existingUser.setRoles(user.getRoles());
+ 			existingUser.setListaAnnunci(user.getListaAnnunci());
+ 			existingUser.setListaPrenotazioni(user.getListaPrenotazioni());
+  			existingUser.setListaPrenotazioniInsegnante(user.getListaPrenotazioniInsegnante());
+  			
+			List<Annuncio> updatedAnnunci = updateAnnunciForUser(existingUser);
+		    existingUser.setListaAnnunci(updatedAnnunci);
+		    userRepository.save(existingUser);
+  			
+  			return existingUser;
+  			
+  		}
+  		
+  		return null;
   	}
+  	
+  	private List<Annuncio> updateAnnunciForUser(User user) {
+		List<Annuncio> annunci = annuncioRepo.findByUser(user);
+		for(Annuncio annuncio : annunci) {
+			annuncio.setUser(user);
+		}
+		
+		return  annuncioRepo.saveAll(annunci);
+		
+	}
+  	
+ 
+  	
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  	
   	
 	public User setUserImage (String username, MultipartFile image) throws IOException {
 		

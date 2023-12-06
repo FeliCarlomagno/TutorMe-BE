@@ -12,6 +12,8 @@
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
+			<item value="avvio"/>
+			<item value="scommentare"/>
 			<item value="Inisegnante"/>
 			<item value="inisegnante"/>
 		</list>

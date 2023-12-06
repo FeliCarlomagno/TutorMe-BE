@@ -78,6 +78,7 @@ public class AnnuncioService {
 			u.getListaAnnunci().add(a);
 			a.setUser(u);
 			return annuncioRepository.save(a);
+			
 		}else {
 			throw new EntityNotFoundException("Nessun utente presente con questo Username");
 		}

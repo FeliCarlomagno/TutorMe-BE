@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -60,8 +61,8 @@ public class User {
     )
     private Set<Role> roles = new HashSet<>();
    
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.MERGE)
-   private List<Annuncio> listaAnnunci;
+   @OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.MERGE)
+   private List<Annuncio> listaAnnunci = new ArrayList<>();
    
    @OneToMany (fetch = FetchType.EAGER, mappedBy = "userPrenotante", cascade = CascadeType.MERGE)
    @JsonIgnoreProperties({"userPrenotante"})
@@ -71,4 +72,5 @@ public class User {
    @OneToMany(fetch = FetchType.EAGER, mappedBy = "insegnante", cascade = CascadeType.MERGE)
    @JsonIgnoreProperties({"insegnante"})
    private List<Prenotazione> listaPrenotazioniInsegnante;
+   
 }
