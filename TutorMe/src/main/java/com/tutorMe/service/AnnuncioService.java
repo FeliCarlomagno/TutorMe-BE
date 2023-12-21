@@ -104,4 +104,13 @@ public class AnnuncioService {
 			
 	}
 	
+	public List<Annuncio> updateAnnuncioForUser (User user){
+		List<Annuncio> annunci = annuncioRepository.findByUser(user);
+		for(Annuncio annuncio : annunci) {
+			annuncio.setUser(user);
+		}
+		
+		return  annuncioRepository.saveAll(annunci);
+	}
+	
 }

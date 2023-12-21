@@ -26,18 +26,24 @@ import com.auth.repository.RoleRepository;
 import com.auth.repository.UserRepository;
 import com.auth.security.JwtTokenProvider;
 import com.tutorMe.model.Annuncio;
+import com.tutorMe.model.Prenotazione;
 import com.tutorMe.repository.AnnuncioRepository;
+import com.tutorMe.repository.PrenotazioneRepository;
 import com.tutorMe.service.AnnuncioService;
 
 import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class AuthServiceImpl implements AuthService {
-
+	
+	@Autowired AnnuncioService annuncioService;
+	@Autowired AnnuncioRepository annuncioRepo;
+	@Autowired PrenotazioneRepository prenotazioneRepo;
     private AuthenticationManager authenticationManager;
     private UserRepository userRepository;
     private RoleRepository roleRepository; 
-    @Autowired AnnuncioRepository annuncioRepo;
+    
+    
     private PasswordEncoder passwordEncoder;
    
     private JwtTokenProvider jwtTokenProvider;
@@ -153,6 +159,12 @@ public class AuthServiceImpl implements AuthService {
   		if(!userRepository.existsById(id)) {
   			throw new EntityNotFoundException("Nessuno utente trovato con questo ID");
   		}
+  		List<Annuncio> listaAnnunciUtente = annuncioRepo.findByUserId(id);
+  		annuncioRepo.deleteAll(listaAnnunciUtente);
+  		
+  		List<Prenotazione> listaPrenotazioniUtente = prenotazioneRepo.findPrenotazioneByUserId(id);
+  		prenotazioneRepo.deleteAll(listaPrenotazioniUtente);
+  		
   		userRepository.deleteById(id);
   		return "Utente eliminato correttamente";
   	}
@@ -180,7 +192,7 @@ public class AuthServiceImpl implements AuthService {
  			existingUser.setListaPrenotazioni(user.getListaPrenotazioni());
   			existingUser.setListaPrenotazioniInsegnante(user.getListaPrenotazioniInsegnante());
   			
-			List<Annuncio> updatedAnnunci = updateAnnunciForUser(existingUser);
+			List<Annuncio> updatedAnnunci = annuncioService.updateAnnuncioForUser(existingUser);
 		    existingUser.setListaAnnunci(updatedAnnunci);
 		    userRepository.save(existingUser);
   			
@@ -189,19 +201,7 @@ public class AuthServiceImpl implements AuthService {
   		}
   		
   		return null;
-  	}
-  	
-  	private List<Annuncio> updateAnnunciForUser(User user) {
-		List<Annuncio> annunci = annuncioRepo.findByUser(user);
-		for(Annuncio annuncio : annunci) {
-			annuncio.setUser(user);
-		}
-		
-		return  annuncioRepo.saveAll(annunci);
-		
-	}
-  	
- 
+  	} 
   	
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   	

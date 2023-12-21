@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 import com.auth.entity.User;
+import com.tutorMe.model.Annuncio;
 import com.tutorMe.model.Prenotazione;
 
 public interface PrenotazioneRepository extends JpaRepository<Prenotazione, Long>, PagingAndSortingRepository<Prenotazione, Long> {
@@ -19,9 +20,8 @@ public interface PrenotazioneRepository extends JpaRepository<Prenotazione, Long
 	@Query("SELECT p FROM Prenotazione p INNER JOIN p.userPrenotante userPrenotante WHERE userPrenotante = :userPrenotante AND p.dataPrenotazione = :dataPrenotazione")
 	public List<Prenotazione> listByUserAndDate(User userPrenotante, Date dataPrenotazione);
 	
-	
-	//List<Prenotazione> findByMateriaPrenotazione(String materiaPrenotazione);
-	//List<Prenotazione> findByInsegnante(Insegnante insegnante);
+	@Query ("SELECT p FROM Prenotazione p WHERE p.userPrenotante.id = :userPrenotanteId")
+	List<Prenotazione> findPrenotazioneByUserId ( Long userPrenotanteId);
 }
 
 

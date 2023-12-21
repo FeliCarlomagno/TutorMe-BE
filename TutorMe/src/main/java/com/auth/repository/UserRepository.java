@@ -29,6 +29,5 @@ public interface UserRepository extends JpaRepository<User, Long>,PagingAndSorti
    	@Query("SELECT u FROM User u ORDER BY u.name ASC ")
    	List<User> findAllOrderByName();
    	
-
    	
 }

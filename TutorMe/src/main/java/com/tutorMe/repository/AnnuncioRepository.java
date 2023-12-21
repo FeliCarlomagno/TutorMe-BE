@@ -24,5 +24,8 @@ public interface AnnuncioRepository extends JpaRepository<Annuncio, Long>, Pagin
 	
 	@Query("SELECT a FROM Annuncio a WHERE a.user = :user")
 	List<Annuncio> findByUser (User user);
+	
+	@Query ("SELECT a FROM Annuncio a WHERE a.user.id = :userId")
+	List<Annuncio> findByUserId ( Long userId);
 }
 
