@@ -6,13 +6,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.tutorMe.model.Annuncio;
 import com.tutorMe.model.Prenotazione;
@@ -40,8 +37,6 @@ public class User {
     @Column(nullable = false, unique = true)
     private String email;
     
-//    private Integer numeroTelefono;
-    
     @Column(nullable = false)
     private String password;
     
@@ -50,8 +45,9 @@ public class User {
     @Column(length = 2048)
     private String descrizione;
     
-    @Lob
-    private byte[] image;
+   // @Lob
+    @Column (name = "profileImage", columnDefinition = "bytea")
+    private byte[] profileImage;
     
          
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
@@ -72,5 +68,8 @@ public class User {
    @OneToMany(fetch = FetchType.EAGER, mappedBy = "insegnante", cascade = CascadeType.MERGE)
    @JsonIgnoreProperties({"insegnante"})
    private List<Prenotazione> listaPrenotazioniInsegnante;
+   
+   
+   
    
 }

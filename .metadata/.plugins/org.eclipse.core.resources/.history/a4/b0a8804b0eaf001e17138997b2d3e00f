@@ -1,0 +1,14 @@
+spring.datasource.driver-class-name=org.postgresql.Driver
+spring.datasource.url=jdbc:postgresql://localhost:5432/TutorMe
+spring.datasource.username=postgres
+spring.datasource.password=main-root
+
+
+spring.jpa.hibernate.ddl-auto=none
+
+
+app.jwt-secret=nR96kBL4ThQ4P985sdEmvFrxKTQq7VtKnQE2Pt7GJ3jJuC3wyDoVcChEfjUFu8xkV4sy
+app.jwt-expiration-milliseconds=604800000
+
+
+logging.level.org.springframework= DEBUG

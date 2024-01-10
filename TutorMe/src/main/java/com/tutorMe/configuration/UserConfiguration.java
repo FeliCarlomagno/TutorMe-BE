@@ -1,13 +1,10 @@
 package com.tutorMe.configuration;
 
-import java.util.Locale;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
 
 import com.auth.entity.User;
-import com.github.javafaker.Faker;
 
 
 @Configuration
@@ -29,16 +26,4 @@ public class UserConfiguration {
 		u.setPassword(password);
 		return u;
 	}
-	
-//	@Bean("UserFaker")
-//	@Scope("prototype")
-//	public User userFaker() {
-//		Faker fake = new Faker (new Locale("it_IT"));
-//		User u = new User();
-//		u.setName(fake.name().firstName());
-//		u.setUsername(fake.name().username());
-//		u.setEmail(u.getName() + "." + u.getUsername() + "@studenti.com");
-//		
-//		return u;
-//	}
 }

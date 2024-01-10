@@ -131,8 +131,8 @@ public class AuthController {
     
     //METODO SETTA IMMAGINE
 	@PutMapping("/setImmagine/{username}")
-	@PreAuthorize("hasRole('USER') or hasRole ('ADMIN')")
-	public  ResponseEntity<?> settaImmagine(@PathVariable String username, @RequestParam("image") MultipartFile file){
+//	@PreAuthorize("hasRole('USER') or hasRole ('ADMIN')")
+	public  ResponseEntity<?> settaImmagine(@PathVariable String username, @RequestParam("file") MultipartFile file){
 		try {
 			return new ResponseEntity<>(userServiceImpl.setUserImage(username, file), HttpStatus.OK);
 		} catch (Exception e) {
